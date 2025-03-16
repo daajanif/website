@@ -1,8 +1,12 @@
 ---
 import { languages, defaultLanguage, languageFlags } from '../../i18n/config';
+import { getAvailableLanguages } from '../../i18n/translations';
 
 const { currentLanguage = defaultLanguage } = Astro.props;
 const currentPath = Astro.url.pathname;
+
+// Get all available languages from translation files
+const availableLanguages = getAvailableLanguages();
 
 // Get path without language prefix
 let pathWithoutLang = currentPath;
@@ -14,35 +18,174 @@ if (segments[1] && Object.keys(languages).includes(segments[1])) {
 }
 ---
 
-<div class="language-toggle flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md">
-  <!-- Language icon -->
-  <div class="mr-2 text-gray-600 dark:text-gray-300">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-      <path fill-rule="evenodd" d="M9 2.25a.75.75 0 0 1 .75.75v1.506a49.384 49.384 0 0 1 5.343.371.75.75 0 1 1-.186 1.489c-.66-.083-1.323-.151-1.99-.206a18.67 18.67 0 0 1-2.97 6.323c.318.384.65.753 1 1.107a.75.75 0 0 1-1.07 1.052A18.902 18.902 0 0 1 9 13.687a18.823 18.823 0 0 1-5.656 4.482.75.75 0 0 1-.688-1.333 17.323 17.323 0 0 0 5.396-4.353A18.72 18.72 0 0 1 5.89 8.598a.75.75 0 0 1 1.388-.568A17.21 17.21 0 0 0 9 11.224a17.168 17.168 0 0 0 2.391-5.165 48.04 48.04 0 0 0-8.298.307.75.75 0 0 1-.186-1.489 49.159 49.159 0 0 1 5.343-.371V3A.75.75 0 0 1 9 2.25ZM15.75 9a.75.75 0 0 1 .68.433l5.25 11.25a.75.75 0 1 1-1.36.634l-1.198-2.567h-6.744l-1.198 2.567a.75.75 0 0 1-1.36-.634l5.25-11.25A.75.75 0 0 1 15.75 9Zm-2.672 8.25h5.344l-2.672-5.726-2.672 5.726Z" clip-rule="evenodd" />
-    </svg>
-  </div>
-  
-  <select 
-    id="language-select"
-    class="bg-white dark:bg-gray-800 rounded px-3 py-1 text-sm cursor-pointer border border-gray-300 dark:border-gray-600"
-    aria-label="Select language"
+<div class="language-toggle relative">
+  <button 
+    id="language-menu-button" 
+    type="button"
+    aria-expanded="false"
+    aria-haspopup="true"
+    class="flex items-center justify-between gap-1 px-3 py-2 text-sm font-medium text-neutral-700 hover:text-primary-500 dark:text-neutral-300 dark:hover:text-primary-400"
   >
-    {Object.entries(languages).map(([code, name]) => (
-      <option value={code} selected={code === currentLanguage}>
-        {languageFlags[code as keyof typeof languageFlags]} {name}
-      </option>
-    ))}
-  </select>
+    <span class="sr-only">Select language</span>
+    <span aria-hidden="true" class="flex items-center">
+      {languageFlags[currentLanguage] || '🌐'} {languages[currentLanguage]}
+    </span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4 ml-1 transition-transform" aria-hidden="true">
+      <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+    </svg>
+  </button>
+  
+  <div 
+    id="language-menu" 
+    class="absolute left-0 top-full z-50 mt-1 hidden w-40 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-800 dark:ring-neutral-700" 
+    role="menu" 
+    aria-orientation="vertical" 
+    aria-labelledby="language-menu-button" 
+    tabindex="-1"
+  >
+    <div class="py-1">
+      {availableLanguages.map((code) => {
+        // Only show languages defined in our languages config
+        if (!languages[code]) return null;
+        
+        const targetPath = code === defaultLanguage ? pathWithoutLang : `/${code}${pathWithoutLang}`;
+        return (
+          <a 
+            href={targetPath}
+            class={`block px-4 py-2 text-sm ${code === currentLanguage ? 'bg-neutral-100 text-primary-600 dark:bg-neutral-700 dark:text-primary-400' : 'text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-700'}`}
+            role="menuitem"
+            tabindex="-1"
+            data-lang-path={targetPath}
+          >
+            {languageFlags[code] || '🌐'} {languages[code]}
+          </a>
+        );
+      })}
+    </div>
+  </div>
 </div>
 
-<script define:vars={{ languages, pathWithoutLang }}>
-  document.getElementById('language-select').addEventListener('change', (e) => {
-    const selectedLang = e.target.value;
-    if (selectedLang) {
-      const newPath = selectedLang === 'en' 
-        ? pathWithoutLang 
-        : `/${selectedLang}${pathWithoutLang === '/' ? '' : pathWithoutLang}`;
-      window.location.href = newPath;
-    }
-  });
+<script>
+document.addEventListener('astro:page-load', () => {
+  const button = document.getElementById('language-menu-button');
+  const menu = document.getElementById('language-menu');
+  
+  if (button && menu) {
+    // Position menu based on available space
+    const positionMenu = () => {
+      const buttonRect = button.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const spaceBelow = viewportHeight - buttonRect.bottom;
+      const spaceNeeded = menu.offsetHeight + 8; // Add a small buffer
+      
+      // Check if mobile view (based on viewport width or specific breakpoint)
+      const isMobile = window.innerWidth < 768;
+      
+      if (isMobile) {
+        // On mobile, always position dropdown below the button
+        menu.style.top = 'calc(100% + 4px)';
+        menu.style.bottom = 'auto';
+        menu.style.left = '0';
+        menu.style.right = 'auto';
+        menu.style.maxHeight = '60vh'; // Limit height on mobile
+        menu.style.overflowY = 'auto'; // Enable scrolling if needed
+      } else {
+        // On desktop, check if there's enough space below
+        if (spaceBelow < spaceNeeded) {
+          // Not enough space below, position above
+          menu.style.bottom = 'calc(100% + 4px)';
+          menu.style.top = 'auto';
+        } else {
+          // Enough space below, position below
+          menu.style.top = 'calc(100% + 4px)';
+          menu.style.bottom = 'auto';
+        }
+        
+        // Handle RTL layout
+        const isRTL = document.documentElement.dir === 'rtl';
+        if (isRTL) {
+          menu.style.right = '0';
+          menu.style.left = 'auto';
+        } else {
+          menu.style.left = '0';
+          menu.style.right = 'auto';
+        }
+      }
+    };
+    
+    // Toggle dropdown
+    button.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', (!expanded).toString());
+      
+      if (!expanded) {
+        // Show the menu
+        menu.classList.remove('hidden');
+        positionMenu();
+      } else {
+        // Hide the menu
+        menu.classList.add('hidden');
+      }
+      
+      // Rotate the arrow icon
+      const icon = button.querySelector('svg');
+      if (icon) {
+        icon.style.transform = expanded ? '' : 'rotate(180deg)';
+      }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!button.contains(event.target) && !menu.contains(event.target)) {
+        button.setAttribute('aria-expanded', 'false');
+        menu.classList.add('hidden');
+        const icon = button.querySelector('svg');
+        if (icon) {
+          icon.style.transform = '';
+        }
+      }
+    });
+    
+    // Close dropdown after selection and log the target path
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetPath = link.getAttribute('data-lang-path');
+        console.log(`Language changed - Navigating to: ${targetPath}`);
+        
+        button.setAttribute('aria-expanded', 'false');
+        menu.classList.add('hidden');
+      });
+    });
+    
+    // Update position on window resize
+    window.addEventListener('resize', () => {
+      if (button.getAttribute('aria-expanded') === 'true') {
+        positionMenu();
+      }
+    });
+  }
+});
 </script>
+
+<style>
+  /* Language toggle styling */
+  .language-toggle {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Ensure dropdown is visible in mobile view */
+  @media (max-width: 767px) {
+    #language-menu {
+      width: auto;
+      min-width: 150px;
+      max-width: 80vw;
+    }
+  }
+  
+  /* RTL specific styles */
+  html[dir="rtl"] #language-menu {
+    left: auto;
+    right: 0;
+  }
+</style>

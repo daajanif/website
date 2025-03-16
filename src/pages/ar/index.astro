@@ -1,23 +1,23 @@
 ---
+// Arabic page (ar/index.astro)
+
 // Components
 // - Layout
-import Layout from '../layouts/Layout.astro'
+import Layout from '../../layouts/Layout.astro'
 // - UI
-import Hero from '../components/blocks/hero/HomeCTA.astro'
-import Features from '../components/blocks/features/FeatureCards.astro'
-import FAQ from '../components/blocks/FAQ/Basic.astro'
+import Hero from '../../components/blocks/hero/HomeCTA.astro'
+import Features from '../../components/blocks/features/FeatureCards.astro'
+import FAQ from '../../components/blocks/FAQ/Basic.astro'
 
 // i18n
-import { defaultLanguage, getLanguageFromURL } from '../i18n/config';
-import { getTranslations } from '../i18n/translations';
+import { getTranslations } from '../../i18n/translations';
 
-// Get the current language
-const currentPath = Astro.url.pathname;
-const currentLanguage = defaultLanguage; // Default language for root page
+// Get the current language from the directory name
+const currentLanguage = 'ar';
 const t = getTranslations(currentLanguage);
 
-console.log(`Main Index Page - Current language: ${currentLanguage}`);
-console.log(`Main Index Page - Home title: ${t.sections?.home?.title}`);
+console.log(`Arabic Page - Current language: ${currentLanguage}`);
+console.log(`Arabic Page - Home title: ${t.sections?.home?.title}`);
 
 // SEO translations
 const SEO = {

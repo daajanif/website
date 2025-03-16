@@ -1,5 +1,5 @@
 ---
-// Feature Cards grid Section
+// Feature Cards grid Section with Dynamic Translation Support
 // ------------
 // Description: A grid of cards with feature information in a 4 column layout.
 
@@ -11,6 +11,10 @@ import Col from '../../ui/Col.astro'
 // - UI
 import Card from '../../ui/cards/FeatureCard.astro'
 
+// i18n
+import { defaultLanguage } from '../../../i18n/config';
+import { getTranslations } from '../../../i18n/translations';
+
 // Content
 // - Cards
 import feature01 from '../../../assets/cards/feature-01.svg'
@@ -18,54 +22,100 @@ import feature02 from '../../../assets/cards/feature-02.svg'
 import feature03 from '../../../assets/cards/feature-03.svg'
 import feature04 from '../../../assets/cards/feature-04.svg'
 import feature05 from '../../../assets/cards/feature-05.svg'
+
+// Props
+type Props = {
+  currentLanguage?: string;
+}
+
+// Get current language from props or default
+const { currentLanguage = defaultLanguage } = Astro.props;
+
+// Get translations for current language
+const t = getTranslations(currentLanguage);
+
+console.log(`FeatureCards - Current language: ${currentLanguage}`);
+console.log(`FeatureCards - Title being used: ${t.sections?.features?.title}`);
+
+// Feature data with translations
+const features = [
+  {
+    title: t.sections?.features?.feature1 || "Real-Time Analytics",
+    subtitle: t.sections?.features?.feature1Subtitle || "Accept payments globally with support for credit cards, digital wallets, and local payment methods. Secure, fast, and reliable transactions for your business.",
+    image: feature01,
+    link: "/features"
+  },
+  {
+    title: t.sections?.features?.feature2 || "Advanced Automation Tools",
+    subtitle: t.sections?.features?.feature2Subtitle || "Stay on top of your tasks and deadlines with our intuitive project management tool.",
+    image: feature02,
+    link: "/features"
+  },
+  {
+    title: t.sections?.features?.feature3 || "Effective Team Collaboration",
+    subtitle: t.sections?.features?.feature3Subtitle || "With our integrated chat platform share updates, files, and messages in a secure and user-friendly environment.",
+    image: feature03,
+    link: "/features"
+  },
+  {
+    title: t.sections?.features?.feature4 || "Robust Data Security",
+    subtitle: t.sections?.features?.feature4Subtitle || "Build and nurture customer relationships with our powerful CRM system.",
+    image: feature04,
+    link: "/features"
+  },
+  {
+    title: t.sections?.features?.feature5 || "Simplify your financial operations",
+    subtitle: t.sections?.features?.feature5Subtitle || "Streamline your billing process with our easy-to-use invoicing tool. Create, send, and track invoices effortlessly.",
+    image: feature05,
+    link: "/features"
+  }
+];
 ---
 
 <Section id="features">
 	<Row>
 		<Col span="12" align="center" classes="mb-12 max-w-4xl mx-auto">
-			<h2 class="text-pretty">Innovative tools to <strong>transform</strong> your operations</h2>
+			<h2 class="text-pretty">{t.sections?.features?.title || "Features"}</h2>
 			<p class="pb-0 text-lg">
-				Explore the suite of tools designed to streamline your operations, enhance productivity, and
-				drive growth. Our solution is crafted with precision to meet your needs and ease your
-				customers journy.
+				{t.sections?.features?.subtitle || "Explore the suite of tools designed to streamline your operations, enhance productivity, and drive growth."}
 			</p>
 		</Col>
 	</Row>
 	<Row>
 		<Col span="4">
 			<Card
-				title="All payment methods"
-				subtitle="Accept payments globally with support for credit cards, digital wallets, and local payment methods. Secure, fast, and reliable transactions for your business."
-				image={feature01}
-				link="/features"
+				title={features[0].title}
+				subtitle={features[0].subtitle}
+				image={features[0].image}
+				link={features[0].link}
 			/>
 		</Col>
 		<Col span="4" classes="flex flex-col gap-6">
 			<Card
-				title="Organize & manage your operations"
-				subtitle="Stay on top of your tasks and deadlines with our intuitive project management tool. "
-				image={feature02}
-				link="/features"
+				title={features[1].title}
+				subtitle={features[1].subtitle}
+				image={features[1].image}
+				link={features[1].link}
 			/>
 			<Card
-				title="Keep your team connected"
-				subtitle="With our integrated chat platform share updates, files, and messages in a secure and user-friendly environment."
-				image={feature03}
-				link="/features"
+				title={features[2].title}
+				subtitle={features[2].subtitle}
+				image={features[2].image}
+				link={features[2].link}
 			/>
 		</Col>
 		<Col span="4" classes="flex flex-col gap-6">
 			<Card
-				title="Manage your customers"
-				subtitle="Build and nurture customer relationships with our powerful CRM system. "
-				image={feature04}
-				link="/features"
+				title={features[3].title}
+				subtitle={features[3].subtitle}
+				image={features[3].image}
+				link={features[3].link}
 			/>
 			<Card
-				title="Simplify your financial operations"
-				subtitle="Streamline your billing process with our easy-to-use invoicing tool. Create, send, and track invoices effortlessly."
-				image={feature05}
-				link="/features"
+				title={features[4].title}
+				subtitle={features[4].subtitle}
+				image={features[4].image}
+				link={features[4].link}
 			/>
 		</Col>
 	</Row>

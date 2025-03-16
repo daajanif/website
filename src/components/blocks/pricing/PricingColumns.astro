@@ -1,7 +1,7 @@
 ---
-// Pricing plabs Section
+// Pricing plans Section with Dynamic Translation Support
 // ------------
-// Description: A section with a list of 3 pricing plans with toggle to switch between monthly and annual pricing.
+// Description: A section with a list of pricing plans with toggle to switch between monthly and annual pricing.
 
 // Components
 // - Layout
@@ -10,6 +10,10 @@ import Row from '../../ui/Row.astro'
 import Col from '../../ui/Col.astro'
 // - UI
 import PricingTable from '../../ui/pricing-tables/PricingTable.astro'
+
+// i18n
+import { defaultLanguage } from '../../../i18n/config';
+import { getTranslations } from '../../../i18n/translations';
 
 // Content
 import pricingTablesData from '../../../data/json-files/pricingTablesdata.json'
@@ -40,12 +44,74 @@ type PricingTableData = {
 	type: 'basic' | 'featured'
 }
 
-const pricingData: PricingTableData[] = pricingTablesData as PricingTableData[]
+type Props = {
+  currentLanguage?: string;
+}
+
+// Get current language from props or default
+const { currentLanguage = defaultLanguage } = Astro.props;
+
+// Get translations for current language
+const t = getTranslations(currentLanguage);
+
+console.log(`PricingColumns - Current language: ${currentLanguage}`);
+
+// Process pricing data with translations
+const pricingData: PricingTableData[] = pricingTablesData.map((plan, index) => {
+	// Create a localized version of each pricing plan
+	return {
+		...plan,
+		header: {
+			...plan.header,
+			title: t.pricing?.[`plan${index+1}Title`] || plan.header.title,
+			subtitle: t.pricing?.[`plan${index+1}Subtitle`] || plan.header.subtitle,
+			buttonName: t.pricing?.ctaButton || plan.header.buttonName,
+		},
+		body: plan.body ? {
+			listItems: plan.body.listItems.map((item, itemIndex) => ({
+				listItem: t.pricing?.[`plan${index+1}Feature${itemIndex+1}`] || item.listItem
+			}))
+		} : undefined,
+		footer: plan.footer ? {
+			...plan.footer,
+			buttonName: t.pricing?.seeAllFeatures || plan.footer.buttonName
+		} : undefined
+	};
+});
 ---
 
-<Section>
+<Section id="pricing">
 	<Row>
-
+        <Col span="12" align="center" classes="mb-12">
+            <h2 class="text-pretty">{t.pricing?.title || "Choose the plan that's right for you"}</h2>
+            <p class="pb-0 text-lg">
+                {t.pricing?.subtitle || "All plans include a 14-day free trial. No credit card required."}
+            </p>
+            
+            <!-- Pricing Toggle -->
+            <div class="relative mt-6 flex items-center justify-center">
+                <label for="pricingType" class="relative mr-2 flex cursor-pointer items-center">
+                    <span id="monthlyLabel" class="mr-2 text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                        {t.pricing?.monthly || "Monthly"}
+                    </span>
+                    <div class="pricing-toggle-wrapper">
+                        <input
+                            type="checkbox"
+                            id="pricingType"
+                            class="sr-only"
+                            checked
+                        />
+                        <div class="pricing-toggle"></div>
+                    </div>
+                </label>
+                <span id="annualLabel" class="ml-2 text-sm font-medium text-primary-500 dark:text-primary-400">
+                    {t.pricing?.annually || "Annually"}
+                    <span class="ml-1 rounded-full bg-green-100 px-2 text-xs font-semibold text-green-600">
+                        {t.pricing?.annualDiscount || "Save 20%"}
+                    </span>
+                </span>
+            </div>
+        </Col>
 		{
 			pricingData.map((item, key) => (
 				<Col span="4">
@@ -54,5 +120,17 @@ const pricingData: PricingTableData[] = pricingTablesData as PricingTableData[]
 			))
 		}
 	</Row>
+    <PricingChange />
 </Section>
-<PricingChange />
+
+<style>
+    .pricing-toggle-wrapper {
+        @apply relative inline-flex h-6 w-11 items-center rounded-full bg-gray-200;
+    }
+    .pricing-toggle {
+        @apply absolute left-0.5 h-5 w-5 transform rounded-full bg-white transition-transform;
+    }
+    input:checked + .pricing-toggle {
+        @apply translate-x-5 bg-primary-500;
+    }
+</style>

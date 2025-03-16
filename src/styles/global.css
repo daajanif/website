@@ -83,3 +83,207 @@ main a {
 .scroll-animation .col {
 	@apply translate-y-4 transform opacity-0 transition-all duration-1000 [&.scroll-animated]:translate-y-0 [&.scroll-animated]:opacity-100 [&:nth-child(1)]:delay-[50ms] [&:nth-child(10)]:delay-[725ms] [&:nth-child(11)]:delay-[800ms] [&:nth-child(12)]:delay-[875ms] [&:nth-child(2)]:delay-[125ms] [&:nth-child(3)]:delay-[200ms] [&:nth-child(4)]:delay-[275ms] [&:nth-child(5)]:delay-[350ms] [&:nth-child(6)]:delay-[425ms] [&:nth-child(7)]:delay-[500ms] [&:nth-child(8)]:delay-[575ms] [&:nth-child(9)]:delay-[650ms];
 }
+
+/* Add these RTL styles to your global.css file */
+
+/* RTL Base Utilities */
+html[dir="rtl"] {
+	/* Text alignment */
+	.rtl-text-right {
+	  text-align: right !important;
+	}
+	
+	.rtl-text-left {
+	  text-align: left !important;
+	}
+	
+	/* Flexbox direction */
+	.rtl-flex-row-reverse {
+	  flex-direction: row-reverse !important;
+	}
+	
+	/* Margins */
+	.rtl-mr-auto {
+	  margin-right: auto !important;
+	  margin-left: 0 !important;
+	}
+	
+	.rtl-ml-auto {
+	  margin-left: auto !important;
+	  margin-right: 0 !important;
+	}
+	
+	.rtl-ml-0 {
+	  margin-left: 0 !important;
+	}
+	
+	.rtl-mr-0 {
+	  margin-right: 0 !important;
+	}
+	
+	/* Padding */
+	.rtl-pr-6 {
+	  padding-right: 1.5rem !important;
+	  padding-left: 0 !important;
+	}
+	
+	.rtl-pl-6 {
+	  padding-left: 1.5rem !important;
+	  padding-right: 0 !important;
+	}
+	
+	/* Borders */
+	.rtl-border-r {
+	  border-right-width: 1px !important;
+	  border-left-width: 0 !important;
+	}
+	
+	.rtl-border-l {
+	  border-left-width: 1px !important;
+	  border-right-width: 0 !important;
+	}
+  }
+
+  /* Add these RTL styles to your global.css file */
+
+/* RTL Base Utilities - Add these to your global styles */
+html[dir="rtl"] .rtl-text-right {
+  text-align: right !important;
+}
+
+html[dir="rtl"] .rtl-text-left {
+  text-align: left !important;
+}
+
+html[dir="rtl"] .rtl-flex-row-reverse {
+  flex-direction: row-reverse !important;
+}
+
+html[dir="rtl"] .rtl-mr-auto {
+  margin-right: auto !important;
+  margin-left: 0 !important;
+}
+
+html[dir="rtl"] .rtl-ml-auto {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+html[dir="rtl"] .rtl-ml-0 {
+  margin-left: 0 !important;
+}
+
+html[dir="rtl"] .rtl-mr-0 {
+  margin-right: 0 !important;
+}
+
+html[dir="rtl"] .rtl-pr-6 {
+  padding-right: 1.5rem !important;
+  padding-left: 0 !important;
+}
+
+html[dir="rtl"] .rtl-pl-6 {
+  padding-left: 1.5rem !important;
+  padding-right: 0 !important;
+}
+
+html[dir="rtl"] .rtl-border-r {
+  border-right-width: 1px !important;
+  border-left-width: 0 !important;
+}
+
+html[dir="rtl"] .rtl-border-l {
+  border-left-width: 1px !important;
+  border-right-width: 0 !important;
+}
+
+/* RTL for specific components */
+html[dir="rtl"] .header__menu-item {
+  text-align: right;
+}
+
+html[dir="rtl"] .header__submenu {
+  right: auto !important;
+  left: 0 !important;
+}
+
+html[dir="rtl"] .card__body, 
+html[dir="rtl"] .cta__body {
+  text-align: right;
+}
+
+html[dir="rtl"] .input__label {
+  right: 0.5rem !important;
+  left: auto !important;
+}
+
+html[dir="rtl"] .input__icon {
+  right: 1rem !important;
+  left: auto !important;
+}
+
+html[dir="rtl"] .feature--side-icon {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] ul:not(.header__menu):not(.footer__sub ul) li {
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
+html[dir="rtl"] .testimonial__blockquote {
+  text-align: right;
+}
+
+html[dir="rtl"] blockquote:before {
+  right: 0 !important;
+  left: auto !important;
+}
+
+/* Fix for icons in RTL mode */
+html[dir="rtl"] svg:not(.no-flip) {
+  transform: scaleX(-1);
+}
+
+/* Specific classes that shouldn't be flipped */
+html[dir="rtl"] .no-rtl-flip {
+  direction: ltr !important;
+  text-align: left !important;
+  transform: none !important;
+}
+
+/* Tailwind Space Utilities in RTL */
+html[dir="rtl"] .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+  margin-right: calc(2rem * var(--tw-space-x-reverse));
+  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+/* Adjustments for header and navigation in RTL mode */
+html[dir="rtl"] .header__menu {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .footer__cols {
+  flex-direction: row-reverse;
+}
+
+/* RTL adjustments for footer components */
+html[dir="rtl"] .footer__main-brand {
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .footer__sub ul {
+  justify-content: flex-start;
+}
+
+/* Mobile menu adjustments for RTL */
+html[dir="rtl"] .mobile-menu {
+  text-align: right;
+}
+
+/* Language toggle positioning for RTL */
+html[dir="rtl"] #language-menu {
+  right: auto;
+  left: 0;
+}

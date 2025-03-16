@@ -1,0 +1,119 @@
+{
+    "nav": {
+      "home": "Startseite",
+      "features": "Funktionen",
+      "pricing": "Preise",
+      "faq": "FAQ",
+      "contact": "Kontakt"
+    },
+    "sections": {
+      "home": {
+        "title": "Ihre Valet-Parking-Lösung",
+        "subtitle": "Optimieren Sie Ihren Parkservice mit leistungsstarken Tools",
+        "cta": "Kostenlos starten",
+        "customers": "zufriedene Kunden",
+        "footerText": "Fahrzeugsicherheit und Kundendatenschutz haben für uns höchste Priorität"
+      },
+      "features": {
+        "title": "Funktionen",
+        "subtitle": "Alles, was Sie für einen erfolgreichen Parkservice benötigen",
+        "feature1": "Akzeptiert alle gängigen Zahlungsmethoden",
+        "feature1Subtitle": "Akzeptieren Sie Zahlungen weltweit mit Unterstützung für Kreditkarten, digitale Geldbörsen und lokale Zahlungsmethoden. Sichere, schnelle und zuverlässige Transaktionen für Ihren Parkservice.",
+        "feature2": "Intelligente Schlüsselverwaltung",
+        "feature2Subtitle": "Behalten Sie den Überblick über Ihre Fahrzeugschlüssel mit unserem intuitiven Schlüsselverfolgungssystem. Verlieren Sie nie wieder einen Schlüssel.",
+        "feature3": "Nahtlose Personalkoordination",
+        "feature3Subtitle": "Mit unserer integrierten Teamplattform können Sie Updates, Fahrzeugstatus und Kundenanfragen in einer sicheren und benutzerfreundlichen Umgebung teilen.",
+        "feature4": "Sicherer Kundendatenschutz",
+        "feature4Subtitle": "Bauen und pflegen Sie Kundenbeziehungen mit unserem leistungsstarken CRM-System, das speziell für den Parkservice entwickelt wurde.",
+        "feature5": "Optimierte Abrechnungsprozesse",
+        "feature5Subtitle": "Vereinfachen Sie Ihre Parkservice-Finanzvorgänge mit unserem benutzerfreundlichen Rechnungstool. Erstellen, versenden und verfolgen Sie Rechnungen mühelos."
+      },
+      "faq": {
+        "title": "Häufig gestellte Fragen",
+        "subtitle": "Typische Fragen zu unserer Parkservice-Managementplattform",
+        "question1": "Was ist in der kostenlosen Testversion enthalten?",
+        "answer1": "Unsere kostenlose Testversion gibt Ihnen 14 Tage lang vollen Zugriff auf alle Funktionen unserer Parkservice-Plattform. Sie können unbegrenzt Fahrzeuge verwalten, das Kundenbenachrichtigungssystem nutzen und alle Premium-Funktionen ohne Kosten testen.",
+        "question2": "Kann ich meinen Tarif später ändern?",
+        "answer2": "Ja, Sie können Ihren Tarif jederzeit in Ihren Kontoeinstellungen upgraden oder downgraden. Die Änderungen werden sofort wirksam, und Kostenanpassungen werden basierend auf Ihrem Abrechnungszyklus anteilig berechnet.",
+        "question3": "Gibt es versteckte Gebühren?",
+        "answer3": "Nein, es gibt keine versteckten Gebühren. Der Preis, den Sie sehen, ist der Preis, den Sie zahlen. Wir glauben an transparente Preisgestaltung ohne Überraschungen für unsere Parkservice-Partner.",
+        "question4": "Welche Zahlungsmethoden akzeptieren Sie?",
+        "answer4": "Wir akzeptieren alle gängigen Kreditkarten, einschließlich Visa, MasterCard, American Express und PayPal. Für größere Parkservice-Betriebe bieten wir auch Rechnungsoptionen an."
+      },
+      "contact": {
+        "title": "Kontakt",
+        "subtitle": "Wir sind hier, um Ihren Parkservice zu unterstützen",
+        "name": "Name",
+        "email": "E-Mail",
+        "message": "Nachricht",
+        "send": "Senden"
+      },
+      "footer": {
+        "title": "ValetPro.",
+        "aboutText": "Die komplette Parkservice-Management-Lösung, die Ihre Parkabläufe transformiert. Reduzieren Sie Wartezeiten, vermeiden Sie verlorene Tickets und bieten Sie außergewöhnlichen Kundenservice mit unserer intuitiven Plattform, die speziell für Parkservice-Profis entwickelt wurde.",
+        "copyright": "© ValetPro 2024. Alle Rechte vorbehalten.",
+        "socialLinks": "Social-Media-Links",
+        "column1Title": "Plattform",
+        "column1Link1": "Funktionen",
+        "column1Link2": "FAQ",
+        "column1Link3": "Preise",
+        "column1Link4": "Updates",
+        "column1Link5": "Nutzungsbedingungen",
+        "column2Title": "Unternehmen",
+        "column2Link1": "Über uns",
+        "column2Link2": "Neuigkeiten",
+        "column2Link3": "Karriere",
+        "column3Title": "Support",
+        "column3Link1": "Kontakt",
+        "column3Link2": "Hilfe-Center",
+        "column3Link3": "Partnerprogramm",
+        "payments": {
+          "title": "Zahlungsmethoden",
+          "description": "Wir akzeptieren folgende Zahlungsmethoden",
+          "visa": "Visa",
+          "mastercard": "Mastercard",
+          "amex": "American Express",
+          "paypal": "PayPal"
+        }
+      }
+    },
+    "pricing": {
+      "title": "Wählen Sie den richtigen Tarif für Ihren Parkservice",
+      "subtitle": "Alle Tarife beinhalten eine 14-tägige kostenlose Testversion. Keine Kreditkarte erforderlich.",
+      "monthly": "Monatlich",
+      "annually": "Jährlich",
+      "annualDiscount": "20% sparen",
+      "ctaButton": "Kostenlos testen",
+      "seeAllFeatures": "Alle Funktionen anzeigen",
+      
+      "plan1Title": "Starter",
+      "plan1Subtitle": "Perfekt für kleine Parkservices.",
+      "plan1Feature1": "Verwaltung von bis zu 50 Fahrzeugen täglich",
+      "plan1Feature2": "SMS-Benachrichtigungen für abholbereite Fahrzeuge",
+      "plan1Feature3": "Grundlegende Berichte und Analysen",
+      
+      "plan2Title": "Professional",
+      "plan2Subtitle": "Ideal für wachsende Parkservices",
+      "plan2Feature1": "Verwaltung von bis zu 200 Fahrzeugen täglich",
+      "plan2Feature2": "Kunden-App mit Abholanfragen",
+      "plan2Feature3": "Erweiterte Betriebsanalysen",
+      "plan2Feature4": "Prioritäts-Support",
+      
+      "plan3Title": "Enterprise",
+      "plan3Subtitle": "Für große Parkservice-Betriebe",
+      "plan3Feature1": "Unbegrenzte Fahrzeuge und Standorte",
+      "plan3Feature2": "Maßgeschneiderte Integration mit bestehenden Systemen",
+      "plan3Feature3": "Persönlicher Account Manager"
+    },
+    "common": {
+      "learnMore": "Mehr erfahren",
+      "getStarted": "Jetzt starten",
+      "readMore": "Weiterlesen",
+      "loading": "Wird geladen...",
+      "success": "Erfolgreich!",
+      "error": "Fehler!",
+      "search": "Suche",
+      "submit": "Absenden",
+      "cancel": "Abbrechen"
+    }
+  }

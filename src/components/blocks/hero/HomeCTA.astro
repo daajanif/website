@@ -1,5 +1,5 @@
 ---
-// Home page CTA Section
+// Home page CTA Section with Dynamic Translation Support
 // ------------
 // Description: A centered call to action section that contains: a title, text, a user review snippet, a button and a image.
 
@@ -14,39 +14,44 @@ import { Image } from 'astro:assets'
 import Button from '../../ui/Button.astro'
 import AvatarGroup from '../../ui/AvatarGroup.astro'
 
+// i18n
+import { defaultLanguage } from '../../../i18n/config';
+import { getTranslations } from '../../../i18n/translations';
+
 // Content
 // - Hero Image
 import heroImage from '../../../assets/hero-01.png'
-// - Avatars
-// import user1 from '../../../assets/avatars/avatar-01.webp'
-// import user2 from '../../../assets/avatars/avatar-02.webp'
-// import user3 from '../../../assets/avatars/avatar-03.webp'
-// const avatars = [
-// 	{ image: { src: user1.src, alt: 'user name' }, link: '/' },
-// 	{ image: { src: user2.src, alt: 'user name' }, link: '/' },
-// 	{ image: { src: user3.src, alt: 'user name' }, link: '/' }
-// ]
+
+// Props
+type Props = {
+  currentLanguage?: string;
+}
+
+// Get current language from props or default
+const { currentLanguage = defaultLanguage } = Astro.props;
+
+// Get translations for current language
+const t = getTranslations(currentLanguage);
+
+console.log(`HomeCTA - Current language: ${currentLanguage}`);
+console.log(`HomeCTA - Title being used: ${t.sections?.home?.title}`);
 ---
 
 <Section id="intro" padding="top" classes="bg-neutral-50 dark:bg-neutral-900">
 	<Row>
 		<Col span="2" />
 		<Col span="8" align="center">
-			<!-- <ChipNotification radius="rounded-full" classes="mb-6">
-				<strong>30K+</strong> satisfied customers
-				<AvatarGroup avatars={avatars} radius="rounded-full" slot="button" />
-			</ChipNotification> -->
-			<h1>We are <strong>1# Valet SaaS</strong> with seamless interface</h1>
+			<h1 set:html={t.sections?.home?.title || "Your Productivity Toolkit"} />
 
-			<p class="pb-0 text-lg">Work smarter, not harder, with our innovative platform</p>
-			<Button size="lg" link="/">Get started for free</Button>
+			<p class="pb-0 text-lg">{t.sections?.home?.subtitle || "Boost your workflow with powerful tools"}</p>
+			<Button size="lg" link="/">{t.sections?.home?.cta || "Get started for free"}</Button>
 		</Col>
 		<Col span="2" />
 		<Col span="2" />
 		<Col span="8">
 			<Image
 				src={heroImage}
-				alt="ValetPro. The Best SaaS for Valet parking"
+				alt={t.sections?.home?.title || "Your Productivity Toolkit"}
 				class="translate-y-8 shadow-2xl shadow-neutral-200 dark:shadow-neutral-950"
 				format="webp"
 			/></Col

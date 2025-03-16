@@ -7,7 +7,7 @@ import Footer from '../components/ui/Footer.astro'
 import Modal from '../components/blocks/modal/SignUp.astro'
 import Header from '../components/blocks/head/Header.astro'
 // Scripts
-import Scriprs from '../components/scripts/LocalScripts.astro'
+import Scripts from '../components/scripts/LocalScripts.astro'
 import GoogleTagManagerBody from '../components/scripts/googleTagManagerBody.astro'
 // Styles
 import '../styles/global.css'
@@ -16,6 +16,11 @@ import '@fontsource-variable/inter'
 import '@fontsource-variable/outfit'
 // Data
 import { configData } from '../config/config'
+import { languages, defaultLanguage } from '../i18n/config'
+
+// Get language from Astro.locals (set by middleware) or from props
+const { lang } = Astro.locals || {};
+const currentLanguage = lang || Astro.props.currentLanguage || defaultLanguage;
 
 // Props
 type Props = {
@@ -23,11 +28,11 @@ type Props = {
 	description?: string
 	ogImage?: string
 	noindex?: boolean
-	currentLanguage?: string // language 
+	currentLanguage?: string
 }
 
 // Page Metadata
-const { title, description, ogImage, noindex, currentLanguage = 'en' } = Astro.props
+const { title, description, ogImage, noindex } = Astro.props
 
 // Check if language is RTL (e.g., Arabic)
 const isRtl = currentLanguage === 'ar';
@@ -55,21 +60,60 @@ const isRtl = currentLanguage === 'ar';
     <Main>
       <slot />
     </Main>
-    <Footer />
+    <Footer currentLanguage={currentLanguage} />
     <Modal />
-    <Scriprs />
+    <Scripts />
   </body>
 </html>
 
 <style is:global>
-  /* Add global RTL styles if needed */
-  html[dir="rtl"] .rtl\:text-right {
-    text-align: right;
+  /* RTL specific styles */
+  html[dir="rtl"] {
+    /* Flip margins/paddings for RTL */
+    .rtl\:mr-auto { margin-right: auto !important; margin-left: 0 !important; }
+    .rtl\:ml-0 { margin-left: 0 !important; }
+    .rtl\:ml-auto { margin-left: auto !important; margin-right: 0 !important; }
+    
+    /* Flip borders */
+    .rtl\:border-r { border-right-width: 1px !important; border-left-width: 0 !important; }
+    .rtl\:border-l-0 { border-left-width: 0 !important; }
+    
+    /* Flip padding */
+    .rtl\:pr-6 { padding-right: 1.5rem !important; }
+    .rtl\:pl-0 { padding-left: 0 !important; }
+    
+    /* Flip text alignment */
+    .rtl\:text-right { text-align: right !important; }
+    
+    /* Reverse flex direction */
+    .rtl\:flex-row-reverse { flex-direction: row-reverse !important; }
+    
+    /* Reverse space */
+    .rtl\:space-x-reverse { --tw-space-x-reverse: 1 !important; }
   }
   
-  html[dir="rtl"] .rtl\:flex-row-reverse {
+  /* RTL flips for elements with flex */
+  html[dir="rtl"] .header__menu,
+  html[dir="rtl"] .footer__cols,
+  html[dir="rtl"] .card__body {
     flex-direction: row-reverse;
   }
   
-  /* Add any other RTL-specific global styles here */
+  /* RTL adjustments for specific components */
+  html[dir="rtl"] .input__icon {
+    right: 1rem;
+    left: auto;
+  }
+  
+  html[dir="rtl"] .input__label {
+    right: 0.5rem;
+    left: auto;
+  }
+  
+  /* Flip icons for RTL */
+  html[dir="rtl"] svg:not(.no-flip) {
+    transform: scaleX(-1);
+  }
+  
+  /* Add more RTL styles as needed */
 </style>

@@ -1,19 +1,119 @@
 {
-    "nav": {
-      "home": "Home",
-      "features": "Features",
-      "pricing": "Pricing",
-      "faq": "FAQ",
-      "contact": "Contact"
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "sections": {
+    "home": {
+      "title": "Your Valet Parking Solution",
+      "subtitle": "Streamline your valet operations with powerful tools",
+      "cta": "Get started for free",
+      "customers": "satisfied customers",
+      "footerText": "Vehicle safety and customer data security are our top priorities"
     },
-    "sections": {
-      "home": {
-        "title": "Your Productivity Toolkit",
-        "subtitle": "Boost your workflow with powerful tools"
-      },
-      "features": {
-        "title": "Features",
-        "subtitle": "Everything you need to succeed"
+    "features": {
+      "title": "Features",
+      "subtitle": "Everything you need to run a successful valet operation",
+      "feature1": "Accepts all major payment methods",
+      "feature1Subtitle": "Accept payments globally with support for credit cards, digital wallets, and local payment methods. Secure, fast, and reliable transactions for your valet business.",
+      "feature2": "Smart Key Management",
+      "feature2Subtitle": "Stay on top of your vehicle keys with our intuitive key tracking and management system. Never lose a key again.",
+      "feature3": "Seamless Staff Coordination",
+      "feature3Subtitle": "With our integrated team platform, share updates, vehicle status, and customer requests in a secure and user-friendly environment.",
+      "feature4": "Secure Customer Data Protection",
+      "feature4Subtitle": "Build and nurture customer relationships with our powerful CRM system designed specifically for valet operations.",
+      "feature5": "Streamlined Billing Process",
+      "feature5Subtitle": "Simplify your valet financial operations with our easy-to-use invoicing tool. Create, send, and track invoices effortlessly."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Common questions about our valet management platform",
+      "question1": "What is included in the free trial?",
+      "answer1": "Our free trial gives you full access to all features of our valet platform for 14 days. You can manage unlimited vehicles, use the customer notification system, and try all premium features without any cost.",
+      "question2": "Can I change my plan later?",
+      "answer2": "Yes, you can upgrade or downgrade your plan at any time from your account settings. The changes will take effect immediately, and any cost adjustments will be prorated based on your billing cycle.",
+      "question3": "Are there any hidden fees?",
+      "answer3": "No, there are no hidden fees. The price you see is the price you pay. We believe in transparent pricing with no surprises for our valet partners.",
+      "question4": "What payment methods do you accept?",
+      "answer4": "We accept all major credit cards, including Visa, MasterCard, American Express, and PayPal. For enterprise valet operations, we also offer invoicing options."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "subtitle": "We're here to support your valet operations",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send"
+    },
+    "footer": {
+      "title": "ValetPro.",
+      "aboutText": "The complete valet management solution that transforms your parking operations. Reduce wait times, eliminate lost tickets, and deliver exceptional customer experiences with our intuitive platform designed specifically for valet professionals.",
+      "copyright": "© ValetPro 2024. All rights reserved.",
+      "socialLinks": "Social Media Links",
+      "column1Title": "Platform",
+      "column1Link1": "Features",
+      "column1Link2": "FAQ",
+      "column1Link3": "Pricing",
+      "column1Link4": "Updates",
+      "column1Link5": "Terms",
+      "column2Title": "Company",
+      "column2Link1": "About us",
+      "column2Link2": "News",
+      "column2Link3": "Careers",
+      "column3Title": "Support",
+      "column3Link1": "Contact",
+      "column3Link2": "Help Center",
+      "column3Link3": "Partner Program",
+      "payments": {
+        "title": "Payment Methods",
+        "description": "We accept the following payment methods",
+        "visa": "Visa",
+        "mastercard": "Mastercard",
+        "amex": "American Express",
+        "paypal": "PayPal"
       }
     }
+  },
+  "pricing": {
+    "title": "Choose the right plan for your valet business",
+    "subtitle": "All plans include a 14-day free trial. No credit card required.",
+    "monthly": "Monthly",
+    "annually": "Annually",
+    "annualDiscount": "Save 20%",
+    "ctaButton": "Try for free",
+    "seeAllFeatures": "See all features",
+    
+    "plan1Title": "Starter",
+    "plan1Subtitle": "Perfect for small valet operations.",
+    "plan1Feature1": "Manage up to 50 vehicles daily",
+    "plan1Feature2": "SMS notifications for vehicle ready status",
+    "plan1Feature3": "Basic reporting and analytics",
+    
+    "plan2Title": "Professional",
+    "plan2Subtitle": "Ideal for growing valet services",
+    "plan2Feature1": "Manage up to 200 vehicles daily",
+    "plan2Feature2": "Customer mobile app with retrieval requests",
+    "plan2Feature3": "Advanced operational analytics",
+    "plan2Feature4": "Priority support",
+    
+    "plan3Title": "Enterprise",
+    "plan3Subtitle": "For large-scale valet operations",
+    "plan3Feature1": "Unlimited vehicles and locations",
+    "plan3Feature2": "Custom integration with existing systems",
+    "plan3Feature3": "Dedicated account manager"
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "readMore": "Read More",
+    "loading": "Loading...",
+    "success": "Success!",
+    "error": "Error!",
+    "search": "Search",
+    "submit": "Submit",
+    "cancel": "Cancel"
   }
+}
