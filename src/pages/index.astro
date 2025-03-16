@@ -1,0 +1,49 @@
+---
+// Components
+// - Layout
+import Layout from '../layouts/Layout.astro'
+// - UI
+import Hero from '../components/blocks/hero/HomeCTA.astro'
+import Features from '../components/blocks/features/FeatureCards.astro'
+
+import Price from '../components/blocks/pricing/PricingColumns.astro'
+import FAQ from '../components/blocks/FAQ/Basic.astro'
+
+// - SEO
+const SEO = {
+	title: 'Foxi | Your Productivity Toolkit',
+	description:
+		'Foxi is a powerful productivity toolkit designed to enhance your workflow and boost your productivity. With features like analytics, security, and integrations, Foxi is the perfect solution for your business.'
+}
+
+---
+
+<Layout title={SEO.title} description={SEO.description}>
+	<!-- Home section -->
+	<div id="home">
+		<Hero />
+	</div>
+	
+	<!-- Features section -->
+	<div id="features">
+		<Features />
+	</div>
+	
+	
+	<!-- Pricing section -->
+	<!-- <div id="pricing">
+		<Price />
+	</div> -->
+	
+	<!-- FAQ section -->
+	<div id="faq">
+		<FAQ classes="bg-slate-50 dark:bg-neutral-900/40" />
+	</div>
+	
+	<!-- Contact section -->
+	<div id="contact">
+
+		//TODO: to add contact form
+
+	</div>
+</Layout>

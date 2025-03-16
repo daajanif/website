@@ -1,0 +1,19 @@
+{
+    "nav": {
+      "home": "Home",
+      "features": "Features",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "contact": "Contact"
+    },
+    "sections": {
+      "home": {
+        "title": "Your Productivity Toolkit",
+        "subtitle": "Boost your workflow with powerful tools"
+      },
+      "features": {
+        "title": "Features",
+        "subtitle": "Everything you need to succeed"
+      }
+    }
+  }

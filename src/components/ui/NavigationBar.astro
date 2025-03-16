@@ -1,0 +1,184 @@
+---
+// Import existing dependencies
+import LanguageToggle from './LanguageToggle.astro';
+import { defaultLanguage } from '../../i18n/config';
+import { configData } from '../../config/config';
+import ThemeSwitcher from '../ui/ModeSwitcher.astro';
+
+// Import translations correctly
+import enTranslations from '../../i18n/translations/en.json';
+import arTranslations from '../../i18n/translations/ar.json';
+
+// Object with all translations
+const translations = { 
+  en: enTranslations,
+  ar: arTranslations 
+};
+
+// Get current language from URL path
+const segments = Astro.url.pathname.split('/');
+const currentLanguage = segments[1] && ['en', 'ar', 'de'].includes(segments[1]) 
+  ? segments[1] 
+  : defaultLanguage;
+
+// Define type for valid languages
+type ValidLanguages = keyof typeof translations;
+
+// Type assertion to ensure currentLanguage is a valid language key
+const t = translations[currentLanguage as ValidLanguages] || translations[defaultLanguage];
+
+// Navigation items using translations
+const navItems = [
+  { label: t.nav.home, href: '#home' },
+  { label: t.nav.features, href: '#features' },
+//   { label: t.nav.pricing, href: '#pricing' },
+  { label: t.nav.faq, href: '#faq' },
+  { label: t.nav.contact, href: '#contact' }
+];
+
+// Detect if current language is RTL
+const isRtl = currentLanguage === 'ar';
+
+// Define logo paths for light and dark modes
+// If configData.logo.darkSrc is not provided, fall back to configData.logo.src
+const lightLogo = configData.logo.src;
+const darkLogo = configData.logo.darkSrc || configData.logo.src;
+---
+
+<header class="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 border-b border-slate-900/10 dark:border-slate-50/[0.06] bg-white/75 dark:bg-slate-900/75">
+	<div class="max-w-8xl mx-auto">
+	  <div class="py-4 mx-4 lg:px-8 lg:mx-0">
+		<div class="relative flex items-center">
+		  <!-- Logo section with light/dark variants -->
+		  <a class="flex-none" href="#">
+			{configData.logo.src ? (
+			  <>
+				<img id="light-logo" src={lightLogo} alt={configData.logo.alt} class="h-8 dark:hidden" />
+				<img id="dark-logo" src={darkLogo} alt={configData.logo.alt} class="h-8 hidden dark:block" />
+			  </>
+			) : (
+			  <span class="font-bold text-xl">{configData.siteTitle}</span>
+			)}
+		  </a>
+		  
+		  <!-- Navigation items -->
+		  <div class="relative hidden lg:flex items-center ml-auto rtl:ml-0 rtl:mr-auto">
+			<nav class="text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
+			  <ul class="flex space-x-8 rtl:space-x-reverse">
+				{navItems.map((item) => (
+				  <li>
+					<a 
+					  href={item.href} 
+					  class="hover:text-primary-500 dark:hover:text-primary-400"
+					>
+					  {item.label}
+					</a>
+				  </li>
+				))}
+			  </ul>
+			</nav>
+			
+			<!-- Add theme and language toggles -->
+			<div class="ml-6 rtl:mr-6 rtl:ml-0 flex items-center border-l rtl:border-r rtl:border-l-0 border-slate-200 dark:border-slate-800 pl-6 rtl:pr-6 rtl:pl-0">
+			  <!-- Theme toggle component -->
+			  <ThemeSwitcher />
+			  
+			  <!-- Language toggle -->
+			  <LanguageToggle currentLanguage={currentLanguage} />
+			</div>
+		  </div>
+		  
+		  <!-- Mobile menu button -->
+		  <button type="button" class="mobile-menu-button ml-auto rtl:ml-0 rtl:mr-auto text-slate-500 w-8 h-8 -my-1 flex items-center justify-center lg:hidden">
+			<span class="sr-only">Open menu</span>
+			<svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+			  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h16"></path>
+			</svg>
+		  </button>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- Mobile menu (hidden by default) with RTL support -->
+	<div class="mobile-menu hidden lg:hidden px-4 py-4 border-t border-slate-200 dark:border-slate-800">
+	  <nav class="flex flex-col space-y-4 text-sm font-semibold text-slate-700 dark:text-slate-200 rtl:text-right">
+		{navItems.map((item) => (
+		  <a 
+			href={item.href} 
+			class="hover:text-primary-500 dark:hover:text-primary-400"
+		  >
+			{item.label}
+		  </a>
+		))}
+	  </nav>
+	  
+	  <!-- Mobile theme and language toggles -->
+	  <div class="flex rtl:flex-row-reverse items-center mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
+		<!-- Theme toggle for mobile -->
+		<ThemeSwitcher />
+		
+		<!-- Mobile language toggle -->
+		<div class="ml-3 rtl:mr-3 rtl:ml-0">
+		  <LanguageToggle currentLanguage={currentLanguage} />
+		</div>
+	  </div>
+	</div>
+  </header>
+
+<!-- Add smooth scrolling and mobile menu toggle -->
+<script>
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(event) {
+      if (!(event.currentTarget instanceof HTMLAnchorElement)) return;
+      event.preventDefault();
+      
+      const href = event.currentTarget.getAttribute('href');
+      if (!href || href === '#') return;
+      
+      const targetElement = document.querySelector(href);
+      
+      if (targetElement instanceof HTMLElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Toggle mobile menu
+  const mobileMenuButton = document.querySelector('.mobile-menu-button');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.mobile-menu a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+  }
+
+// Script to switch logos programmatically if needed
+//   document.addEventListener('themeChanged', function(e) {
+//     // This is optional if we want to do more than just rely on CSS
+//     const theme = e.detail.theme;
+//     const lightLogo = document.getElementById('light-logo');
+//     const darkLogo = document.getElementById('dark-logo');
+    
+//     if (lightLogo && darkLogo) {
+//       if (theme === 'dark') {
+//         lightLogo.classList.add('hidden');
+//         darkLogo.classList.remove('hidden');
+//       } else {
+//         lightLogo.classList.remove('hidden');
+//         darkLogo.classList.add('hidden');
+//       }
+//     }
+//   });
+</script>
