@@ -14,7 +14,7 @@ Object.entries(importedTranslations).forEach(([path, module]) => {
   
   if (langCode) {
     // Store the translation data in our translations object
-    translations[langCode] = module.default || module;
+    translations[langCode] = (module as any).default || module;
   }
 });
 

@@ -1,6 +1,19 @@
 ---
-import { languages, defaultLanguage, languageFlags } from '../../i18n/config';
+import { defaultLanguage } from '../../i18n/config';
 import { getAvailableLanguages } from '../../i18n/translations';
+
+// Define language objects with proper typing
+const languages: Record<string, string> = {
+  en: "English",
+  ar: "العربية",
+  de: "Deutsch"
+};
+
+const languageFlags: Record<string, string> = {
+  en: "🇬🇧",
+  ar: "🇸🇦",
+  de: "🇩🇪"
+};
 
 const { currentLanguage = defaultLanguage } = Astro.props;
 const currentPath = Astro.url.pathname;
@@ -28,7 +41,7 @@ if (segments[1] && Object.keys(languages).includes(segments[1])) {
   >
     <span class="sr-only">Select language</span>
     <span aria-hidden="true" class="flex items-center">
-      {languageFlags[currentLanguage] || '🌐'} {languages[currentLanguage]}
+      {languageFlags[currentLanguage as keyof typeof languageFlags] || '🌐'} {languages[currentLanguage as keyof typeof languages]}
     </span>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4 ml-1 transition-transform" aria-hidden="true">
       <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
@@ -46,7 +59,7 @@ if (segments[1] && Object.keys(languages).includes(segments[1])) {
     <div class="py-1">
       {availableLanguages.map((code) => {
         // Only show languages defined in our languages config
-        if (!languages[code]) return null;
+        if (!languages[code as keyof typeof languages]) return null;
         
         const targetPath = code === defaultLanguage ? pathWithoutLang : `/${code}${pathWithoutLang}`;
         return (
@@ -57,7 +70,7 @@ if (segments[1] && Object.keys(languages).includes(segments[1])) {
             tabindex="-1"
             data-lang-path={targetPath}
           >
-            {languageFlags[code] || '🌐'} {languages[code]}
+            {languageFlags[code as keyof typeof languageFlags] || '🌐'} {languages[code as keyof typeof languages]}
           </a>
         );
       })}
@@ -136,7 +149,7 @@ document.addEventListener('astro:page-load', () => {
     
     // Close dropdown when clicking outside
     document.addEventListener('click', (event) => {
-      if (!button.contains(event.target) && !menu.contains(event.target)) {
+      if (!button.contains(event.target as Node) && !menu.contains(event.target as Node)) {
         button.setAttribute('aria-expanded', 'false');
         menu.classList.add('hidden');
         const icon = button.querySelector('svg');
@@ -148,7 +161,7 @@ document.addEventListener('astro:page-load', () => {
     
     // Close dropdown after selection and log the target path
     menu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', (e) => {
+      link.addEventListener('click', () => {
         const targetPath = link.getAttribute('data-lang-path');
         console.log(`Language changed - Navigating to: ${targetPath}`);
         

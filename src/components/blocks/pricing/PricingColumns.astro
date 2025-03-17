@@ -29,8 +29,8 @@ type PricingTableData = {
 		currency: string
 		price: string
 		priceLabel: string
-		priceMonthly?: string
-		priceLabelMonthly?: string
+		priceMonthly?: string  // This doesn't match your data
+		priceLabelMonthly?: string  // This doesn't match your data
 		buttonName: string
 		buttonLink: string
 	}
@@ -57,7 +57,7 @@ const t = getTranslations(currentLanguage);
 console.log(`PricingColumns - Current language: ${currentLanguage}`);
 
 // Process pricing data with translations
-const pricingData: PricingTableData[] = pricingTablesData.map((plan, index) => {
+const pricingData = pricingTablesData.map((plan, index) => {
 	// Create a localized version of each pricing plan
 	return {
 		...plan,
@@ -77,7 +77,7 @@ const pricingData: PricingTableData[] = pricingTablesData.map((plan, index) => {
 			buttonName: t.pricing?.seeAllFeatures || plan.footer.buttonName
 		} : undefined
 	};
-});
+}) as PricingTableData[];
 ---
 
 <Section id="pricing">
